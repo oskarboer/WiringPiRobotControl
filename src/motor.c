@@ -1,7 +1,7 @@
 #include "main.h"
 
 
-t_motor*	setup_motor(int pin_a, int pin_b, encoder *encoder)
+t_motor*	setup_motor(int pin_a, int pin_b, struct encoder *encoder)
 {
 	t_motor *motor = (t_motor *)malloc(sizeof(t_motor));
 	motor->pin_a = pin_a;

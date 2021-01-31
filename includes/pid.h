@@ -19,14 +19,14 @@ typedef struct	s_pid{
 	int			max_output;
 	double		aim_output;
 	
-	t_motor		motor;
+	t_motor		*motor;
 }				t_pid;
 
 
 t_pid			*pids[MAX_PID];
 
-t_pid*			setup_pid(double P, double I, double D, t_motor motor);
-int				start_pid(t_pid *pid);
+t_pid*			setup_pid(double P, double I, double D, t_motor *motor);
+int				start_pid();
 void			pid_cycle();
 
 

@@ -2,7 +2,7 @@
 
 int num_of_pids = 0;
 
-t_pid*	setup_pid(double P, double I, double D, t_motor motor)
+t_pid*	setup_pid(double P, double I, double D, t_motor *motor)
 {
 	if (num_of_pids >= MAX_PID)
 		return NULL;
@@ -28,17 +28,17 @@ t_pid*	setup_pid(double P, double I, double D, t_motor motor)
 }
 
 
-int		start_pid(t_pid *pid)
+int		start_pid()
 {
 	signal(SIGALRM, pid_cycle);
-	
 	ualarm(5000, 10000);
+	printf("Alarm set\n");
 }
 
 void	pid_cycle()
 {
-	t_pid *pid_pointer = pids;
-	for (; pid_pointer < pid_pointer + MAX_PID; pid_pointer++){
+	t_pid *pid_pointer = *pids;
+	//for (; pid_pointer < pid_pointer + MAX_PID; pid_pointer++){
 		
 		pid_pointer->error = pid_pointer->aim_output - pid_pointer->motor->encoder->value;
 		
@@ -46,12 +46,12 @@ void	pid_cycle()
 		pid_pointer->integral = max(min(pid_pointer->integral, 1000), -1000);
 		pid_pointer->derivative = pid_pointer->error - pid_pointer->error_old;
 		
-		pid_pointer->output = (int)(error * P + derivative * D + integral * I);
+		pid_pointer->output = (int)(pid_pointer->error * pid_pointer->P + pid_pointer->derivative * pid_pointer->D + pid_pointer->integral * pid_pointer->I);
 		
-		pid_pointer->output = -max(min(pid_pointer->output, pid_pointer->max_speed), -pid_pointer->max_speed);
+		pid_pointer->output = -max(min(pid_pointer->output, pid_pointer->max_output), -pid_pointer->max_output);
 		
 		set_speed(pid_pointer->motor, pid_pointer->output);
 		
 		pid_pointer->error_old = pid_pointer->error;
-	}
+	//}
 }

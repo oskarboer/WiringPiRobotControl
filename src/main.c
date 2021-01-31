@@ -32,24 +32,36 @@ int		main (void)
 	delay(3000);
 	
 	
-	for (;;){
-		
-		error = aim - encoder->value;
-		integral += error;
-		integral = max(min(integral, 1000), -1000);
-		derivative = error - error_old;
-		
-		speed = (int)(error * P + derivative * D + integral * I);
-		
-		speed = -max(min(speed, max_speed), -max_speed);
-		
-		set_speed(motorR, speed);
-		printf("%i\n", speed);
-		
-		error_old = error;
-		
-		delay(10);
+	t_pid *pidR = setup_pid(P, I, D, motorR);
+	
+	start_pid();
+	
+	
+	for (;;)
+	{
+		//printf("%i\n", pidR->output);
+		//delay(100);
 	}
+	
+	
+	//for (;;){
+		
+		//error = aim - encoderR->value;
+		//integral += error;
+		//integral = max(min(integral, 1000), -1000);
+		//derivative = error - error_old;
+		
+		//speed = (int)(error * P + derivative * D + integral * I);
+		
+		//speed = -max(min(speed, max_speed), -max_speed);
+		
+		//set_speed(motorR, speed);
+		//printf("%i\n", speed);
+		
+		//error_old = error;
+		
+		//delay(10);
+	//}
 
 
 	
