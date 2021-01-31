@@ -17,7 +17,7 @@ t_pid*	setup_pid(double P, double I, double D, t_motor *motor)
 	pid->error = 0;
 	pid->error_old = 0;
 	pid->output = 0;
-	pid->max_output = 75;
+	pid->max_output = MAX_SPEED;
 	pid->aim_output = 0;
 	pid->motor = motor;
 	
@@ -37,21 +37,25 @@ int		start_pid()
 
 void	pid_cycle()
 {
-	t_pid *pid_pointer = *pids;
-	//for (; pid_pointer < pid_pointer + MAX_PID; pid_pointer++){
+	//t_pid *pid_pointer = *pids;
+	for (int i = 0; i < 2; i++)
+	{
 		
-		pid_pointer->error = pid_pointer->aim_output - pid_pointer->motor->encoder->value;
+		pids[i]->error = pids[i]->aim_output - pids[i]->motor->encoder->value;
 		
-		pid_pointer->integral += pid_pointer->error;
-		pid_pointer->integral = max(min(pid_pointer->integral, 1000), -1000);
-		pid_pointer->derivative = pid_pointer->error - pid_pointer->error_old;
+		pids[i]->integral += pids[i]->error;
+		pids[i]->integral = max(min(pids[i]->integral, 1000), -1000);
+		pids[i]->derivative = pids[i]->error - pids[i]->error_old;
 		
-		pid_pointer->output = (int)(pid_pointer->error * pid_pointer->P + pid_pointer->derivative * pid_pointer->D + pid_pointer->integral * pid_pointer->I);
+		pids[i]->output = (int)(pids[i]->error * pids[i]->P + pids[i]->derivative * pids[i]->D + pids[i]->integral * pids[i]->I);
 		
-		pid_pointer->output = -max(min(pid_pointer->output, pid_pointer->max_output), -pid_pointer->max_output);
+		pids[i]->output = -max(min(pids[i]->output, pids[i]->max_output), -pids[i]->max_output);
 		
-		set_speed(pid_pointer->motor, pid_pointer->output);
+		set_speed(pids[i]->motor, pids[i]->output);
 		
-		pid_pointer->error_old = pid_pointer->error;
-	//}
+		pids[i]->error_old = pids[i]->error;
+		
+		//pid_pointer++;
+		//printf("%i\n", i);
+	}
 }

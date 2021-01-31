@@ -5,6 +5,7 @@
 #include "main.h"
 
 #define MAX_PID 2
+#define MAX_SPEED 75 // out of 100
 
 typedef struct	s_pid{
 	double		P;
