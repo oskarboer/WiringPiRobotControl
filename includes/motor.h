@@ -1,11 +1,15 @@
 
 #ifndef MOTOR_H
-# define MOTOR_H_H
+# define MOTOR_H
+
+#include "main.h"
 
 typedef struct	s_motor{
 	int			pin_a;
 	int			pin_b;
 	int			speed;
+	encoder		*encoder;
+	
 }				t_motor;
 
 t_motor*		setup_motor(int pin_a, int pin_b);

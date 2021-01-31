@@ -3,11 +3,17 @@
 
 #include <wiringPi.h>
 #include <stdio.h>
-#include "rotaryencoder.h"
 #include <softPwm.h>
-#include "motor.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+
+#include "motor.h"
+#include "rotaryencoder.h"
+#include "pid.h"
+
+
 
 #define max(a,b) \
 ({ __typeof__ (a) _a = (a); \

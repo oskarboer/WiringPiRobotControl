@@ -10,10 +10,10 @@ int		main (void)
 	//softPwmCreate(28, 0, 100);
 	//int softPwmCreate (int pin, int initialValue, int pwmRange) ;
 	//void softPwmWrite (int pin, int value);
-	struct encoder *encoder = setupencoder(26, 27);
+	struct encoder *encoderR = setupencoder(26, 27);
 
 
-	t_motor *motorR = setup_motor(28, 29);
+	t_motor *motorR = setup_motor(28, 29, encoderR);
 
 	double P = 0.30;
 	double I = 0.005;
@@ -32,15 +32,12 @@ int		main (void)
 	delay(3000);
 	
 	
-	
-	
 	for (;;){
 		
 		error = aim - encoder->value;
 		integral += error;
 		integral = max(min(integral, 1000), -1000);
 		derivative = error - error_old;
-		
 		
 		speed = (int)(error * P + derivative * D + integral * I);
 		
@@ -53,9 +50,9 @@ int		main (void)
 		
 		delay(10);
 	}
-	
+
 
 	
-	
+
 	return 0;
 }

@@ -1,11 +1,13 @@
 #include "main.h"
 
-t_motor*	setup_motor(int pin_a, int pin_b)
+
+t_motor*	setup_motor(int pin_a, int pin_b, encoder *encoder)
 {
 	t_motor *motor = (t_motor *)malloc(sizeof(t_motor));
 	motor->pin_a = pin_a;
 	motor->pin_b = pin_b;
 	motor->speed = 0;
+	motor->encoder = encoder;
 
 	softPwmCreate(pin_a, 0, 100);
 	softPwmCreate(pin_b, 0, 100);

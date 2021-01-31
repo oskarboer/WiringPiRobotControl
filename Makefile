@@ -5,10 +5,10 @@ CC := gcc
 SOURCES_DIRECTORY := src/
 HEADERS_DIRECTORY := includes/
 
-HEADERS_LIST := main.h rotaryencoder.h motor.h
+HEADERS_LIST := main.h rotaryencoder.h motor.h pid.h
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST := main.c rotaryencoder.c motor.c
+SOURCES_LIST := main.c rotaryencoder.c motor.c pid.c
 SRC := $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 #OBJ := $(patsubst $(SOURCES_DIRECTORY)%.c, %.o, $(SRC))
 
