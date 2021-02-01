@@ -21,12 +21,13 @@ typedef struct	s_pid{
 	double		aim_output;
 	
 	t_motor		*motor;
+	int			(*pid_error_function)(void)
 }				t_pid;
 
 
 t_pid			*pids[MAX_PID];
 
-t_pid*			setup_pid(double P, double I, double D, t_motor *motor);
+t_pid*			setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_function)(void));
 int				start_pid();
 void			pid_cycle();
 

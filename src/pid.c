@@ -2,7 +2,7 @@
 
 int num_of_pids = 0;
 
-t_pid*	setup_pid(double P, double I, double D, t_motor *motor)
+t_pid*	setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_function)(void))
 {
 	if (num_of_pids >= MAX_PID)
 		return NULL;
@@ -23,6 +23,8 @@ t_pid*	setup_pid(double P, double I, double D, t_motor *motor)
 	
 	pids[num_of_pids] = pid;
 	num_of_pids++;
+	
+	pid->pid_error_function = pid_error_function;
 
 	return pid;
 }
