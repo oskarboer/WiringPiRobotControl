@@ -8,11 +8,23 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+#include <time.h>
 
 #include "motor.h"
 #include "rotaryencoder.h"
 #include "pid.h"
 
+
+#define PID_UPDATE_INTERVAL 10000 //microseconds
+#define SECOND_IN_MICROSECONDS 1000000 //microseconds
+
+typedef struct		s_robot{
+	struct encoder	*encoderR;
+	struct encoder	*encoderL;
+	
+	t_motor			*motorR;
+	t_motor			*motorL;
+}					t_robot;
 
 
 #define max(a,b) \

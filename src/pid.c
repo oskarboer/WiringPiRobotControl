@@ -2,7 +2,7 @@
 
 int num_of_pids = 0;
 
-t_pid*	setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_function)(t_pid *pid))
+t_pid*	setup_pid(double P, double I, double D, t_motor *motor, double (*pid_error_function)(t_pid *pid))
 {
 	if (num_of_pids >= MAX_PID)
 		return NULL;
@@ -34,13 +34,12 @@ t_pid*	setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_f
 int		start_pid()
 {
 	signal(SIGALRM, pid_cycle);
-	ualarm(5000, 10000);
+	ualarm(5000, PID_UPDATE_INTERVAL);
 	printf("Alarm set\n");
 }
 
 void	pid_cycle()
 {
-	//t_pid *pid_pointer = *pids;
 	for (int i = 0; i < 2; i++)
 	{
 		
@@ -53,13 +52,11 @@ void	pid_cycle()
 		
 		pids[i]->output = (int)(pids[i]->error * pids[i]->P + pids[i]->derivative * pids[i]->D + pids[i]->integral * pids[i]->I);
 		
-		pids[i]->output = -max(min(pids[i]->output, pids[i]->max_output), -pids[i]->max_output);
+		pids[i]->output = max(min(pids[i]->output, pids[i]->max_output), -pids[i]->max_output);
 		
 		set_speed(pids[i]->motor, pids[i]->output);
 		
 		pids[i]->error_old = pids[i]->error;
-		
-		//pid_pointer++;
-		//printf("%i\n", i);
+		//printf("%d\n", pids[i]->output);
 	}
 }

@@ -36,6 +36,7 @@ struct encoder *setupencoder(int pin_a, int pin_b)
     newencoder->pin_a = pin_a;
     newencoder->pin_b = pin_b;
     newencoder->value = 0;
+    newencoder->last_value = 0;
     newencoder->lastEncoded = 0;
 
     pinMode(pin_a, INPUT);
