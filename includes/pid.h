@@ -6,6 +6,8 @@
 
 #define MAX_PID 2
 #define MAX_SPEED 75 // out of 100
+#define TICKS_PER_REVOLUTION 1430
+
 
 typedef struct	s_pid{
 	double		P;
@@ -19,6 +21,7 @@ typedef struct	s_pid{
 	int			output;
 	int			max_output;
 	double		aim_output;
+	int			ticks_per_revolution;
 	
 	t_motor		*motor;
 	int			(*pid_error_function)(struct s_pid *pid);

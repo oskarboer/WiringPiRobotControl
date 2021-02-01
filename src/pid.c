@@ -23,6 +23,7 @@ t_pid*	setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_f
 	
 	pids[num_of_pids] = pid;
 	num_of_pids++;
+	pid->ticks_per_revolution = TICKS_PER_REVOLUTION;
 	
 	pid->pid_error_function = pid_error_function;
 
