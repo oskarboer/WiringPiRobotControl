@@ -2,7 +2,7 @@
 
 int num_of_pids = 0;
 
-t_pid*	setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_function)(void))
+t_pid*	setup_pid(double P, double I, double D, t_motor *motor, int (*pid_error_function)(t_pid *pid))
 {
 	if (num_of_pids >= MAX_PID)
 		return NULL;
@@ -43,7 +43,8 @@ void	pid_cycle()
 	for (int i = 0; i < 2; i++)
 	{
 		
-		pids[i]->error = pids[i]->aim_output - pids[i]->motor->encoder->value;
+		//pids[i]->error = pids[i]->aim_output - pids[i]->motor->encoder->value;
+		pids[i]->error = pids[i]->aim_output - pids[i]->pid_error_function(pids[i]);
 		
 		pids[i]->integral += pids[i]->error;
 		pids[i]->integral = max(min(pids[i]->integral, 1000), -1000);

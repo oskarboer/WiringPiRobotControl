@@ -1,6 +1,12 @@
 #include "main.h"
 
 
+int		pid_error_function(t_pid *pid)
+{
+	return pid->motor->encoder->value;
+}
+
+
 int		main (void)
 {
 	wiringPiSetup ();
@@ -36,8 +42,8 @@ int		main (void)
 	delay(3000);
 	
 	
-	t_pid *pidR = setup_pid(P, I, D, motorR);
-	t_pid *pidL = setup_pid(P, I, D, motorL);
+	t_pid *pidR = setup_pid(P, I, D, motorR, pid_error_function);
+	t_pid *pidL = setup_pid(P, I, D, motorL, pid_error_function);
 	
 	if (pidR == NULL || pidL == NULL)
 		return 1;
