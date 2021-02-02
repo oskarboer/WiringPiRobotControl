@@ -26,6 +26,11 @@ typedef struct		s_robot{
 	t_motor			*motorL;
 }					t_robot;
 
+t_robot *robot;
+
+void exithandle(int sig);
+t_robot *setup_robot();
+
 
 #define max(a,b) \
 ({ __typeof__ (a) _a = (a); \

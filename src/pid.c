@@ -7,6 +7,8 @@ t_pid*	setup_pid(double P, double I, double D, t_motor *motor, double (*pid_erro
 	if (num_of_pids >= MAX_PID)
 		return NULL;
 	t_pid *pid = (t_pid *)malloc(sizeof(t_pid));
+	if (pid == NULL)
+		return NULL;
 	
 	pid->P = P;
 	pid->I = I;

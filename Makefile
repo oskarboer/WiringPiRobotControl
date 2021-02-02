@@ -8,7 +8,7 @@ HEADERS_DIRECTORY := includes/
 HEADERS_LIST := main.h rotaryencoder.h motor.h pid.h
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST := main.c rotaryencoder.c motor.c pid.c
+SOURCES_LIST := main.c rotaryencoder.c motor.c pid.c utility.c
 SRC := $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 #OBJ := $(patsubst $(SOURCES_DIRECTORY)%.c, %.o, $(SRC))
 

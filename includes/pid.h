@@ -1,4 +1,3 @@
-
 #ifndef PID_H
 # define PID_H
 
@@ -22,9 +21,7 @@ typedef struct	s_pid{
 	int			max_output;
 	double		aim_output;
 	int			ticks_per_revolution;
-	
-	//struct timespec acceced;
-	
+		
 	t_motor		*motor;
 	double			(*pid_error_function)(struct s_pid *pid);
 }				t_pid;
