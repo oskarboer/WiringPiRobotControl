@@ -2,7 +2,7 @@
 
 A wiringPi based control for 2 wheels + encoders robot with Raspberry pi 3b+ as a controller.
 
-# Useage
+# Usage
 
 `make && ./robot`
 
